@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حدث خطأ ما - Error</title>
+    <style>
+        @font-face {
+            font-family: 'Tajawal';
+            src: url('fonts/Tajawal-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
+
+        :root {
+            --neon-red: #ff3131;
+            --glass-bg: rgba(20, 10, 10, 0.95);
+            --error-glow: rgba(255, 49, 49, 0.2);
+        }
+
+        * { box-sizing: border-box; font-family: "Tajawal", sans-serif; }
+
+        body {
+            margin: 0;
+            background: radial-gradient(circle at center, #1a0a0a 0%, #000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .error-card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 49, 49, 0.4);
+            border-radius: 30px;
+            padding: 40px 25px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--error-glow);
+            text-align: center;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; /* حركة اهتزاز خفيفة عند الظهور */
+        }
+
+        /* أيقونة الخطأ الثابتة والمتوهجة */
+        .error-icon-box {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 49, 49, 0.1);
+            border: 2px solid var(--neon-red);
+            border-radius: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 0 20px var(--neon-red);
+        }
+
+        .error-code {
+            font-size: 14px;
+            color: var(--neon-red);
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .error-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 49, 49, 0.5);
+        }
+
+        .error-message {
+            color: #ccc;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 15px;
+            border-right: 3px solid var(--neon-red);
+        }
+
+        .back-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #ff3131, #a70000);
+            border: none;
+            color: white;
+            padding: 16px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 5px 15px rgba(255, 49, 49, 0.3);
+            transition: 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--neon-red);
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .support-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #888;
+            font-size: 13px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .support-link:hover {
+            color: var(--neon-red);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-card">
+        <div class="error-icon-box">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+        </div>
+
+        <div class="error-code">تنبيه بالنظام</div>
+        <h1 class="error-title">عذراً، حدث خطأ</h1>
+        
+        <div class="error-message">
+            $(error)
+        </div>
+
+        <a href="$(link-login)" class="back-btn">العودة لصفحة الدخول</a>
+        
+        <a href="#" class="support-link">اتصل بالدعم الفني إذا استمرت المشكلة</a>
+    </div>
+
+</body>
+</html>

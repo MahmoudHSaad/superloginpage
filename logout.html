@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تم تسجيل الخروج</title>
+    <style>
+        @font-face {
+            font-family: 'Tajawal';
+            src: url('fonts/Tajawal-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
+
+        :root {
+            --neon-red: #ff3131;
+            --glass-bg: rgba(15, 15, 15, 0.95);
+        }
+
+        * { box-sizing: border-box; font-family: "Tajawal", sans-serif; }
+
+        body {
+            margin: 0;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .logout-card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 49, 49, 0.3);
+            border-radius: 25px;
+            padding: 40px 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 49, 49, 0.1);
+            border: 2px solid var(--neon-red);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 15px rgba(255, 49, 49, 0.2);
+        }
+
+        .status-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .status-msg {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* جدول بيانات الجلسة بشكل مرتب */
+        .info-table {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-row:last-child { border-bottom: none; }
+
+        .info-label { color: #888; font-size: 13px; }
+        .info-value { color: var(--neon-red); font-weight: bold; font-size: 14px; }
+
+        .relogin-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #ff3131, #8b0000);
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 49, 49, 0.2);
+        }
+
+        .relogin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--neon-red);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logout-card">
+        <div class="icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ff3131" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                <line x1="12" y1="2" x2="12" y2="12"></line>
+            </svg>
+        </div>
+
+        <div class="status-title">تم تسجيل الخروج بنجاح</div>
+        <p class="status-msg">
+            شكراً لزيارتك. لقد تم إغلاق جلستك الحالية وتأمين حسابك. ننتظر عودتك مرة أخرى قريباً.
+        </p>
+
+        <div class="info-table">
+            <div class="info-row">
+                <span class="info-label">المستخدم</span>
+                <span class="info-value">$(username)</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">وقت الاتصال</span>
+                <span class="info-value">$(uptime)</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">البيانات المستهلكة</span>
+                <span class="info-value">$(bytes-out-nice)</span>
+            </div>
+        </div>
+
+        <a href="$(link-login)" class="relogin-btn">تسجيل دخول جديد</a>
+    </div>
+
+</body>
+</html>

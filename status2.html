@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حالة الاتصال - Status</title>
+    <style>
+        @font-face {
+            font-family: 'Tajawal';
+            src: url('fonts/Tajawal-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
+
+        :root {
+            --neon-red: #ff3131;
+            --glass-bg: rgba(25, 25, 25, 0.9);
+            --border-glass: rgba(255, 49, 49, 0.3);
+        }
+
+        * { box-sizing: border-box; font-family: "Tajawal", sans-serif; }
+
+        body {
+            margin: 0;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            min-height: 100vh;
+            color: #fff;
+            overflow-y: auto; 
+            padding: 40px 0; /* مسافة أمان للسكرول على الجوال */
+        }
+        
+     
+  
+
+
+        /* حاوية البطاقة مع توهج خارجي */
+        .status-card {
+            width: 90%;
+            max-width: 380px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(255, 49, 49, 0.2);
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* الإطار النيوني المتحرك */
+        .status-card::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 32px;
+            padding: 2px;
+            background: linear-gradient(45deg, transparent, var(--neon-red), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            z-index: -1;
+            animation: rotateBorder 3s linear infinite;
+        }
+
+        /* الهيدر داخل الكارد */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+        }
+
+        .logo-box { display: flex; align-items: center; gap: 10px; }
+        .logo-text { font-weight: bold; font-size: 18px; color: #fff; }
+
+        .time-box { text-align: left; }
+        .digital-clock { color: var(--neon-red); font-weight: bold; font-size: 18px; text-shadow: 0 0 10px var(--neon-red); }
+
+        /* رسالة الحالة */
+        .status-welcome {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .icon-check {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 49, 49, 0.1);
+            border-radius: 50%;
+            display: flex;
+            margin: 0 auto 10px;
+            border: 2px solid var(--neon-red);
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px var(--neon-red);
+        }
+
+        /* شبكة البيانات - تصميم الجدول النيوني */
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border-right: 3px solid var(--neon-red);
+            transition: 0.3s;
+        }
+
+        .data-row:hover {
+            background: rgba(255, 49, 49, 0.05);
+            transform: scale(1.02);
+        }
+
+        .label { color: #888; font-size: 13px; }
+        .value { color: #fff; font-weight: bold; font-size: 14px; }
+
+        /* زر خروج ملفت */
+        .logout-btn {
+            width: 100%;
+            background: transparent;
+            border: 2px solid var(--neon-red);
+            color: var(--neon-red);
+            padding: 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            box-shadow: inset 0 0 10px rgba(255, 49, 49, 0.2);
+        }
+
+        .logout-btn:hover {
+            background: var(--neon-red);
+            color: white;
+            box-shadow: 0 0 20px var(--neon-red);
+        }
+        .glowing-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 49, 49, 0.15);
+            border-radius: 50%;
+            display: flex;
+            margin: 0 auto 15px;
+            border: 2px solid var(--neon-red);
+            justify-content: center;
+            align-items: center;
+            /* تفعيل الوميض */
+            animation: pulse-glow 2s infinite ease-in-out; 
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 5px var(--neon-red), inset 0 0 5px var(--neon-red);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 25px var(--neon-red), inset 0 0 15px var(--neon-red);
+                transform: scale(1.1); /* تأثير النبض */
+            }
+            100% {
+                box-shadow: 0 0 5px var(--neon-red), inset 0 0 5px var(--neon-red);
+                transform: scale(1);
+            }
+        }
+        /* حركات الأنيميشن */
+        @keyframes rotateBorder {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="status-card">
+        <div class="card-header">
+            <div class="logo-box">
+                <svg width="25" height="25" viewBox="0 0 100 100">
+                    <path d="M50 5L85 25V65L50 95L15 65V25L50 5Z" fill="#ff3131" />
+                    <path d="M55 25L35 50H50L45 75L65 50H50L55 25Z" fill="white" />
+                </svg>
+                <span class="logo-text">شبكتي - الذكية</span>
+            </div>
+            <div class="time-box">
+                <div class="digital-clock" id="clock">00:00</div>
+            </div>
+        </div>
+        
+
+        <div class="status-welcome">
+            <div class="icon-check glowing-icon">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#ff3131" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h3 style="margin: 0; font-size: 20px;">أهلاً بك، متصل الآن</h3>
+        </div>
+   
+
+        <div class="data-grid">
+            <div class="data-row">
+                <span class="label">المستخدم</span>
+                <span class="value">$(username)</span>
+            </div>
+            <div class="data-row">
+                <span class="label">وقت الاستهلاك</span>
+                <span class="value">$(uptime)</span>
+            </div>
+            $(if session-time-left)
+            <div class="data-row">
+                <span class="label">الوقت المتبقي</span>
+                <span class="value">$(session-time-left)</span>
+            </div>
+            $(endif)
+            <div class="data-row">
+                <span class="label">  سرعة التحميل </span>
+                <span class="value">$(rx-rate) </span>
+            </div>
+            <div class="data-row">
+                <span class="label">  سرعة الرفع </span>
+                <span class="value">$(tx-rate) </span>
+            </div>
+            <div class="data-row">
+                <span class="label">حجم البيانات</span>
+                <span class="value">$(bytes-out-nice)</span>
+            </div>
+            <div class="data-row">
+                <span class="label">الماك أدريس</span>
+                <span class="value">$(mac)</span>
+            </div>
+     
+ 
+            
+        </div>
+
+        <form action="$(link-logout)" name="logout">
+            <button type="submit" class="logout-btn">إنهاء الجلسة</button>
+        </form>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = h + ":" + m;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
